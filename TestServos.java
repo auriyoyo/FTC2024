@@ -19,53 +19,77 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class TestServos extends LinearOpMode {
     ElapsedTime runtime = new ElapsedTime();
     Servo intakeServo;
-    Servo scoringArm1;
-    Servo scoringArm2;
+    Servo scoringArmLeft;
+    Servo scoringArmRight;
     Servo clawWrist;
     Servo claw;
     
+    double scoringArmLeftPos;
+    double scoringArmRightPos;
+    double clawWristPos;
+    double clawPos;
+    
     public void runOpMode(){
+        
+        intakeServo = hardwareMap.get(Servo.class, "intakeServo");
+        scoringArmLeft = hardwareMap.get(Servo.class, "scoringArmLeft");
+        scoringArmRight = hardwareMap.get(Servo.class, "scoringArmRight");
+        clawWrist = hardwareMap.get(Servo.class, "clawWrist");
+        claw = hardwareMap.get(Servo.class, "claw");
+        
+        scoringArmLeftPos = 0.46;
+        scoringArmLeft.setPosition(scoringArmLeftPos);
+        scoringArmRightPos = 0.50;
+        scoringArmRight.setPosition(scoringArmRightPos);
+        
         waitForStart();
         runtime.reset();
         while (opModeIsActive()){
             
-            // intakeServo = hardwareMap.get(Servo.class, "intakeServo");
-            scoringArm1 = hardwareMap.get(Servo.class, "somethingsimplefornow");
-            scoringArm2 = hardwareMap.get(Servo.class, "scoringArm2");
-            // clawWrist = hardwareMap.get(Servo.class, "clawWrist");
-            // claw = hardwareMap.get(Servo.class, "claw");
-            
             // arm servos
             if(gamepad1.dpad_up){
-                scoringArm1.setPosition(0);
-                telemetry.addData("arm 1 position", scoringArm1.getPosition());
-                telemetry.update();
+                
+                scoringArmLeftPos = 0.98; 
+                scoringArmLeft.setPosition(scoringArmLeftPos);
+                
+                scoringArmRightPos = 0; 
+                scoringArmRight.setPosition(scoringArmRightPos);
                 
             } else if(gamepad1.dpad_down){
-                scoringArm1.setPosition(1);
-                telemetry.addData("arm 1 position", scoringArm1.getPosition());
-                telemetry.update();
+                
+                scoringArmLeftPos = 0.03;
+                scoringArmLeft.setPosition(scoringArmLeftPos);
+                
+                scoringArmRightPos = 0.95;
+                scoringArmRight.setPosition(scoringArmRightPos); 
+                
             }
+            telemetry.addData("left arm position", scoringArmLeft.getPosition());
+            telemetry.addData("right arm position", scoringArmRight.getPosition());
+            telemetry.update();
             
-            
-            if(gamepad1.y){
-                scoringArm2.setPosition(0); // spin down
-                telemetry.addData("arm 2 position", scoringArm2.getPosition());
-                telemetry.update();
-            } else if(gamepad1.a){
-                scoringArm2.setPosition(1); // spin up
-                telemetry.addData("arm 2 position", scoringArm2.getPosition());
-                telemetry.update();
+            // wrist
+            if(gamepad1.b){
+                clawWristPos = 0; 
+                clawWrist.setPosition(clawWristPos);
+            } else if(gamepad1.x){
+                clawWristPos = 1; 
+                clawWrist.setPosition(clawWristPos);
             }
+            telemetry.addData("claw wrist", clawWrist.getPosition());
+            telemetry.update();
             
-            /*
-            // intake servo
-            if(gamepad1.x){
-                intakeServo.setPosition(scoringArm1.getPosition()+0.1);
-            } else if(gamepad1.b){
-                intakeServo.setPosition(scoringArm1.getPosition()+0.1);
+            // claw
+            if(gamepad1.a){
+                clawPos = 0; 
+                claw.setPosition(clawPos);
+            } else if(gamepad1.y){
+                clawPos = 1; 
+                claw.setPosition(clawPos);
             }
-            */
+            telemetry.addData("claw", claw.getPosition());
+            telemetry.update();
+            
         }
     }
 }
