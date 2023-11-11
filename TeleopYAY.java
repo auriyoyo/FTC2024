@@ -40,29 +40,17 @@ public class TeleopYAY extends LinearOpMode {
             double turn  =  gamepad1.right_stick_x;
             robot.robotCentric(up, right, turn, maxPower);
             
-            // linear slides up
-            if(gamepad1.y){
-                robot.lift.setPower(0.5); // TEST POSITIONS
-            }
-            
-            // linear slides down
-            if(gamepad1.a){
-                robot.lift.setPower(-0.5);// TEST POSITIONS
-            }
-            
-            // scoring arm + claw
+            // intake
+
+            // drone
+
+            // hanging
             
             
             /* GAMEPAD 2 */
-            // intake servo
-            if(gamepad2.dpad_up){
-                //robot.intakeServo.setPosition(0); // TEST POSITIONS
-                robot.intakeMotor.setPower(0);
-            }
-            if(gamepad2.dpad_down){
-                //robot.intakeServo.setPosition(0); // TEST POSITIONS
-                robot.intakeMotor.setPower(0);
-            }
+            // scoring automation (arms, wrist, claw, slides)
+
+            // claw
             
         }
     }
